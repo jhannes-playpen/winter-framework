@@ -20,7 +20,7 @@ public abstract class HttpActionServlet extends GenericServlet {
 
 	@Override
 	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-		HttpActionSelector selector = new HttpActionSelector(req, res);
+		HttpActionSelector selector = new ServletHttpActionSelector(req, res);
 		try {
 			LOG.debug("Processing HTTP {} request {}", ((HttpServletRequest)req).getMethod(), ((HttpServletRequest)req).getRequestURL());
 			handle(selector);

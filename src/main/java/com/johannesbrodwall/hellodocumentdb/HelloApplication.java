@@ -2,10 +2,9 @@ package com.johannesbrodwall.hellodocumentdb;
 
 import java.util.Optional;
 
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
 import com.johannesbrodwall.hellodocumentdb.person.PersonController;
 import com.johannesbrodwall.winter.config.PropertySource;
+import com.johannesbrodwall.winter.http.server.ServletWebServer;
 import com.johannesbrodwall.winter.http.server.TomcatWebServer;
 import com.johannesbrodwall.winter.http.server.WebServer;
 
@@ -20,8 +19,6 @@ public class HelloApplication {
 	}
 
 	public static void main(String[] args) throws Exception {
-		SLF4JBridgeHandler.removeHandlersForRootLogger();
-		SLF4JBridgeHandler.install();
 		int port = Optional.ofNullable(System.getenv("HTTP_PORT")).map(Integer::parseInt).orElse(8080);
 
 		new HelloApplication(port).run(args);
@@ -38,10 +35,11 @@ public class HelloApplication {
 	}
 
 	public WebServer start() throws Exception {
-		WebServer server = new TomcatWebServer();
+		ServletWebServer server = new TomcatWebServer();
 		server.setPort(httpPort);
+		//server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
 		server.getExtensions().setServletAttribute("config", helloApplicationContext);
-		server.mapPathToServletClass("/person/*", PersonController.class);
+		server.getExtensions().mapPathToServletClass("/person/*", PersonController.class);
 		server.start();
 		this.actualPort = server.getActualPort();
 		return server;

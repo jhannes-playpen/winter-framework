@@ -10,24 +10,13 @@ import org.junit.Test;
 
 import com.johannesbrodwall.winter.IOUtil;
 
-public class UndertowHttpServerTest extends WebServerTest {
-
-	@Test
-	public void shouldCreateServletClassInstance() throws Exception {
-		ServletWebServer server = new UndertowWebServer();
-		server.setPort(0);
-		server.getExtensions().mapPathToServletClass("/hello", HelloServlet.class);
-		server.start();
-
-		URL url = new URL("http", "localhost", server.getActualPort(), "/hello");
-		assertThat(IOUtil.toString(url)).isEqualTo("Hello world");
-	}
+public class JdkHttpServerTest extends WebServerTest {
 
 	@Test
 	public void shouldCreateHttpResponderInstance() throws Exception {
 		ZonedDateTime startTime = ZonedDateTime.now();
 
-		WebServer server = new UndertowWebServer();
+		WebServer server = new JdkWebServer();
 		server.setPort(0);
 		server.mapPathToResponder("/startTime", new StartTimeResponder(startTime));
 		server.start();

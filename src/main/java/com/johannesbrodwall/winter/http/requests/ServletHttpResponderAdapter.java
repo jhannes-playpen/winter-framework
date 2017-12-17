@@ -1,12 +1,8 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.requests;
 
 import javax.servlet.ServletException;
 
-import com.johannesbrodwall.winter.http.requests.HttpActionSelector;
-import com.johannesbrodwall.winter.http.requests.HttpActionServlet;
-import com.johannesbrodwall.winter.http.requests.HttpResponder;
-
-public class HttpResponderServlet extends HttpActionServlet {
+public class ServletHttpResponderAdapter extends HttpActionServlet {
 
 	public static final String RESPONDER_NAME = "RESPONDER_NAME";
 	private HttpResponder responder;

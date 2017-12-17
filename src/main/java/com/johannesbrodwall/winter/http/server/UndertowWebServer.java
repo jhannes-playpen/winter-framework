@@ -6,21 +6,28 @@ import java.util.UUID;
 import javax.servlet.Servlet;
 
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
+import com.johannesbrodwall.winter.http.requests.ServletHttpResponderAdapter;
 
 import io.undertow.Undertow;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 
-public class UndertowWebServer implements WebServer {
+public class UndertowWebServer implements ServletWebServer {
 
-	public class Extensions implements WebServerExtensions {
+	public class Extensions implements ServletWebServerExtensions {
 
 		@Override
 		public void setServletAttribute(String name, Object value) {
 			deploymentInfo.addServletContextAttribute(name, value);
 		}
 
+		@Override
+		public void mapPathToServletClass(String path, Class<? extends Servlet> servletClass) {
+			deploymentInfo
+				.addServlet(Servlets.servlet(servletClass).addMapping(path));
+
+		}
 	}
 
 	private Undertow.Builder undertowBuilder = Undertow.builder();
@@ -45,12 +52,6 @@ public class UndertowWebServer implements WebServer {
 		return address.getPort();
 	}
 
-	@Override
-	public void mapPathToServletClass(String path, Class<? extends Servlet> servletClass) {
-		deploymentInfo
-			.addServlet(Servlets.servlet(servletClass).addMapping(path));
-
-	}
 
 	@Override
 	public void start() throws Exception {
@@ -63,7 +64,7 @@ public class UndertowWebServer implements WebServer {
 	}
 
 	@Override
-	public WebServerExtensions getExtensions() {
+	public Extensions getExtensions() {
 		return new Extensions();
 	}
 
@@ -72,9 +73,9 @@ public class UndertowWebServer implements WebServer {
 		String servletName = responder.getClass().getSimpleName() + "-" + UUID.randomUUID();
 		getExtensions().setServletAttribute(servletName, responder);
 
-		deploymentInfo.addServlet(Servlets.servlet(HttpResponderServlet.class)
+		deploymentInfo.addServlet(Servlets.servlet(ServletHttpResponderAdapter.class)
 				.addMapping(path)
-				.addInitParam(HttpResponderServlet.RESPONDER_NAME, servletName));
+				.addInitParam(ServletHttpResponderAdapter.RESPONDER_NAME, servletName));
 	}
 
 	@Override

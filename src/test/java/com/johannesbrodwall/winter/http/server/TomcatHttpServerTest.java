@@ -14,9 +14,9 @@ public class TomcatHttpServerTest extends WebServerTest {
 
 	@Test
 	public void shouldCreateServletClassInstance() throws Exception {
-		WebServer server = new TomcatWebServer();
+		TomcatWebServer server = new TomcatWebServer();
 		server.setPort(0);
-		server.mapPathToServletClass("/hello", HelloServlet.class);
+		server.getExtensions().mapPathToServletClass("/hello", HelloServlet.class);
 		server.start();
 
 		URL url = new URL("http", "localhost", server.getActualPort(), "/hello");
