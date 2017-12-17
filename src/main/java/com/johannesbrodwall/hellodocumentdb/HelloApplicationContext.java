@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.hellodocumentdb;
+package com.johannesbrodwall.hellodocumentdb;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.hellodocumentdb;
+package com.johannesbrodwall.hellodocumentdb;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,9 +17,9 @@ import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.johannesbrodwall.hellodocumentdb.HelloApplication;
+import com.johannesbrodwall.hellodocumentdb.HelloApplicationContext;
 import com.johannesbrodwall.winter.config.PropertySource;
-import com.johannesbrodwall.winter.hellodocumentdb.HelloApplication;
-import com.johannesbrodwall.winter.hellodocumentdb.HelloApplicationContext;
 
 
 public class PersonControllerTest {

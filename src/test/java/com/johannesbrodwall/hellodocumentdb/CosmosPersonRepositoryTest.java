@@ -1,14 +1,14 @@
-package com.johannesbrodwall.winter.hellodocumentdb;
+package com.johannesbrodwall.hellodocumentdb;
 
+import com.johannesbrodwall.hellodocumentdb.HelloApplicationContext;
 import com.johannesbrodwall.hellodocumentdb.person.PersonRepository;
 import com.johannesbrodwall.winter.config.PropertySource;
-import com.johannesbrodwall.winter.hellodocumentdb.HelloApplicationContext;
 
-public class MongoPersonRepositoryTest extends AbstractPersonRepositoryTest {
+public class CosmosPersonRepositoryTest extends AbstractPersonRepositoryTest {
 
 	private HelloApplicationContext context = new HelloApplicationContext(PropertySource.create("mongo,unittest"));
 
-	private PersonRepository repository = context.getMongoPersonRepository();
+	private PersonRepository repository = context.getCosmosPersonRepository();
 
 	@Override
 	public PersonRepository getRepository() {

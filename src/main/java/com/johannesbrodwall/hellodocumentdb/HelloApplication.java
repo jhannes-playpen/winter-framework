@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.hellodocumentdb;
+package com.johannesbrodwall.hellodocumentdb;
 
 import java.net.InetSocketAddress;
 import java.util.Optional;
@@ -24,7 +24,7 @@ public class HelloApplication {
 	}
 
 	public static void main(String[] args) throws ServletException {
-		int port = Optional.ofNullable(System.getenv("HTTP_PORT")).map(Integer::parseInt).orElse(13080);
+		int port = Optional.ofNullable(System.getenv("HTTP_PORT")).map(Integer::parseInt).orElse(8080);
 		new HelloApplication(port).run(args);
 	}
 
