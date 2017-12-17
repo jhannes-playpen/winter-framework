@@ -10,12 +10,11 @@ import com.johannesbrodwall.winter.http.server.WebServer;
 
 public class HelloApplication {
 
-	private int httpPort;
-	private int actualPort;
+	private ServletWebServer server = new TomcatWebServer();
 	private HelloApplicationContext helloApplicationContext;
 
 	public HelloApplication(int httpPort) {
-		this.httpPort = httpPort;
+		server.setPort(httpPort);
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -35,18 +34,15 @@ public class HelloApplication {
 	}
 
 	public WebServer start() throws Exception {
-		ServletWebServer server = new TomcatWebServer();
-		server.setPort(httpPort);
 		//server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
 		server.getExtensions().setServletAttribute("config", helloApplicationContext);
 		server.getExtensions().mapPathToServletClass("/person/*", PersonController.class);
 		server.start();
-		this.actualPort = server.getActualPort();
 		return server;
 	}
 
 	public int getActualPort() {
-		return actualPort;
+		return server.getActualPort();
 	}
 
 }
