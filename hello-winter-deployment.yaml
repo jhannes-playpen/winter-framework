@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: hello-winter
+  name: hello-winter
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: hello-winter
+    spec:
+      containers:
+      - name: hello-winter
+        image: nas/spring-hello-documentdb:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PROFILES
+          valueFrom:
+            configMapKeyRef:
+              name: nas-config
+              key: PROFILES
+        - name: DOCUMENTDB_URI
+          valueFrom:
+            configMapKeyRef:
+              name: documentdb-config
+              key: documentdb_uri
+        - name: DOCUMENTDB_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nas-secrets
+              key: documentdb_key
+        resources: {}
+      restartPolicy: Always
+status: {}
