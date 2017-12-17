@@ -11,8 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletException;
-
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +25,7 @@ public class PersonControllerTest {
 	private static Integer serverPort = 9090;
 
 	@BeforeClass
-	public static void startServer() throws ServletException {
+	public static void startServer() throws Exception {
 		HelloApplication application = new HelloApplication(0);
 		HelloApplicationContext context = new HelloApplicationContext(PropertySource.create(new File("."), "unittest,mongo"));
 		application.setContext(context);

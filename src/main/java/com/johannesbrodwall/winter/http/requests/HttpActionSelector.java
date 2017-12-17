@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.requests;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

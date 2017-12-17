@@ -2,12 +2,20 @@ package com.johannesbrodwall.hellodocumentdb.person;
 
 import javax.servlet.ServletException;
 
-import com.johannesbrodwall.winter.http.server.HttpActionSelector;
-import com.johannesbrodwall.winter.http.server.HttpActionServlet;
+import com.johannesbrodwall.hellodocumentdb.HelloApplicationContext;
+import com.johannesbrodwall.winter.http.requests.HttpActionSelector;
+import com.johannesbrodwall.winter.http.requests.HttpActionServlet;
 
 public class PersonController extends HttpActionServlet {
 
 	private PersonControllerContext context;
+
+	public PersonController(HelloApplicationContext context) {
+		this.context = context;
+	}
+
+	public PersonController() {
+	}
 
 	@Override
 	public void init() throws ServletException {
