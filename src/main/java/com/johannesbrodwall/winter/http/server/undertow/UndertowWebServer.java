@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.server.undertow;
 
 import java.net.InetSocketAddress;
 import java.util.UUID;
@@ -7,6 +7,8 @@ import javax.servlet.Servlet;
 
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
 import com.johannesbrodwall.winter.http.requests.ServletHttpResponderAdapter;
+import com.johannesbrodwall.winter.http.server.ServletWebServer;
+import com.johannesbrodwall.winter.http.server.ServletWebServerExtensions;
 
 import io.undertow.Undertow;
 import io.undertow.servlet.Servlets;

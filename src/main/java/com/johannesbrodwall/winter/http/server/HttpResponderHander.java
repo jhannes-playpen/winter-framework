@@ -3,6 +3,7 @@ package com.johannesbrodwall.winter.http.server;
 import java.io.IOException;
 
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
+import com.johannesbrodwall.winter.http.server.jdk.JdkHttpActionSelector;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 

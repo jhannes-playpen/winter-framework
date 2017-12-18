@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.server.tomcat;
 
 import java.net.URISyntaxException;
 import java.util.UUID;
@@ -13,6 +13,8 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import com.johannesbrodwall.winter.ExceptionUtil;
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
 import com.johannesbrodwall.winter.http.requests.ServletHttpResponderAdapter;
+import com.johannesbrodwall.winter.http.server.ServletWebServer;
+import com.johannesbrodwall.winter.http.server.ServletWebServerExtensions;
 
 public class TomcatWebServer implements ServletWebServer {
 

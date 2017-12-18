@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import org.junit.Test;
 
 import com.johannesbrodwall.winter.IOUtil;
+import com.johannesbrodwall.winter.http.server.jdk.JdkWebServer;
 
 public class JdkHttpServerTest extends WebServerTest {
 

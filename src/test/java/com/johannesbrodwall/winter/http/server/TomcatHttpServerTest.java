@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import org.junit.Test;
 
 import com.johannesbrodwall.winter.IOUtil;
+import com.johannesbrodwall.winter.http.server.tomcat.TomcatWebServer;
 
 public class TomcatHttpServerTest extends WebServerTest {
 

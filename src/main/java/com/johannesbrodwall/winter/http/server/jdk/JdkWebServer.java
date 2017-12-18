@@ -1,10 +1,13 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.server.jdk;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import com.johannesbrodwall.winter.ExceptionUtil;
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
+import com.johannesbrodwall.winter.http.server.HttpResponderHander;
+import com.johannesbrodwall.winter.http.server.WebServer;
+import com.johannesbrodwall.winter.http.server.WebServerExtensions;
 
 @SuppressWarnings("restriction")
 public class JdkWebServer implements WebServer {

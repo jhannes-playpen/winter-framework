@@ -5,8 +5,8 @@ import java.util.Optional;
 import com.johannesbrodwall.hellodocumentdb.person.PersonController;
 import com.johannesbrodwall.winter.config.PropertySource;
 import com.johannesbrodwall.winter.http.server.ServletWebServer;
-import com.johannesbrodwall.winter.http.server.TomcatWebServer;
 import com.johannesbrodwall.winter.http.server.WebServer;
+import com.johannesbrodwall.winter.http.server.tomcat.TomcatWebServer;
 
 public class HelloApplication {
 

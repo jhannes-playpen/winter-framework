@@ -1,4 +1,4 @@
-package com.johannesbrodwall.winter.http.server;
+package com.johannesbrodwall.winter.http.server.jdk;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
