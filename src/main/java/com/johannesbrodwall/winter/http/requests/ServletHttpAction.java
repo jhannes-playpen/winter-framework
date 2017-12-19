@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.johannesbrodwall.winter.ExceptionUtil;
 
-
 public class ServletHttpAction implements HttpAction {
 
     private static Logger LOG = LoggerFactory.getLogger(ServletHttpAction.class);

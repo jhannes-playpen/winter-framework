@@ -16,37 +16,38 @@ import com.mongodb.MongoClientURI;
 
 public class HelloApplicationContext implements PersonControllerContext {
 
-	private final PropertySource props;
+    private final PropertySource props;
 
-	public HelloApplicationContext(PropertySource propertySource) {
-		this.props = propertySource;
-	}
+    public HelloApplicationContext(PropertySource propertySource) {
+        this.props = propertySource;
+    }
 
-	@Override
-	public PersonRepository getPersonRepository() {
-		String databaseProvider = props.propertyChoice("personRepository", new String[] { "mongo", "cosmos" }, "mongo");
-		if (databaseProvider.equals("mongo")) {
-			return getMongoPersonRepository();
-		} else {
-			return getCosmosPersonRepository();
-		}
-	}
+    @Override
+    public PersonRepository getPersonRepository() {
+        String databaseProvider = props.propertyChoice("personRepository", new String[] { "mongo", "cosmos" }, "mongo");
+        if (databaseProvider.equals("mongo")) {
+            return getMongoPersonRepository();
+        } else {
+            return getCosmosPersonRepository();
+        }
+    }
 
-	PersonRepository getMongoPersonRepository() {
-		return new MongoPersonRepository(getMongoClient().getDatabase(props.required("mongo.database")));
-	}
+    PersonRepository getMongoPersonRepository() {
+        return new MongoPersonRepository(getMongoClient().getDatabase(props.required("mongo.database")));
+    }
 
-	PersonRepository getCosmosPersonRepository() {
-		return new CosmosPersonRepository(
-				new DocumentClient(props.requiredUrl("cosmos.url"), props.required("cosmos.key"), new ConnectionPolicy(), ConsistencyLevel.Session),
-				props.required("cosmos.database"));
-	}
+    PersonRepository getCosmosPersonRepository() {
+        DocumentClient documentClient = new DocumentClient(
+                props.requiredUrl("cosmos.url"), props.required("cosmos.key"),
+                new ConnectionPolicy(), ConsistencyLevel.Session);
+        return new CosmosPersonRepository(documentClient, props.required("cosmos.database"));
+    }
 
-	private Map<String, MongoClient> mongoClientCache = new HashMap<>();
+    private Map<String, MongoClient> mongoClientCache = new HashMap<>();
 
-	private MongoClient getMongoClient() {
-		String mongoUrl = props.property("mongo.url").orElse("mongodb://localhost:27017");
-		return mongoClientCache.computeIfAbsent(mongoUrl, url -> new MongoClient(new MongoClientURI(url)));
-	}
+    private MongoClient getMongoClient() {
+        String mongoUrl = props.property("mongo.url").orElse("mongodb://localhost:27017");
+        return mongoClientCache.computeIfAbsent(mongoUrl, url -> new MongoClient(new MongoClientURI(url)));
+    }
 
 }

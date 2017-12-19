@@ -4,8 +4,8 @@ import javax.servlet.Servlet;
 
 public interface ServletWebServerExtensions extends WebServerExtensions {
 
-	void setServletAttribute(String name, Object value);
+    void setServletAttribute(String name, Object value);
 
-	void mapPathToServletClass(String path, Class<? extends Servlet> servlet);
+    void mapPathToServletClass(String path, Class<? extends Servlet> servlet);
 
 }

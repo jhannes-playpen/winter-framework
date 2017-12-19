@@ -9,39 +9,37 @@ import com.johannesbrodwall.winter.http.server.tomcat.TomcatWebServer;
 
 public class HelloApplication {
 
-	private WebServer server = new TomcatWebServer();
-	private HelloApplicationContext helloApplicationContext;
+    private WebServer server = new TomcatWebServer();
+    private HelloApplicationContext helloApplicationContext;
 
-	public HelloApplication(int httpPort) {
-		server.setPort(httpPort);
-	}
+    public HelloApplication(int httpPort) {
+        server.setPort(httpPort);
+    }
 
-	public static void main(String[] args) throws Exception {
-		int port = Optional.ofNullable(System.getenv("HTTP_PORT")).map(Integer::parseInt).orElse(8080);
+    public static void main(String[] args) throws Exception {
+        int port = Optional.ofNullable(System.getenv("HTTP_PORT")).map(Integer::parseInt).orElse(8080);
 
-		new HelloApplication(port).run(args);
-	}
+        new HelloApplication(port).run(args);
+    }
 
-	private void run(String[] args) throws Exception {
-		setContext(new HelloApplicationContext(PropertySource.create(System.getenv("PROFILES"))));
-		WebServer server = start();
-		server.await();
-	}
+    private void run(String[] args) throws Exception {
+        setContext(new HelloApplicationContext(PropertySource.create(System.getenv("PROFILES"))));
+        WebServer server = start();
+        server.await();
+    }
 
-	public void setContext(HelloApplicationContext helloApplicationContext) {
-		this.helloApplicationContext = helloApplicationContext;
-	}
+    public void setContext(HelloApplicationContext helloApplicationContext) {
+        this.helloApplicationContext = helloApplicationContext;
+    }
 
-	public WebServer start() throws Exception {
-		server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
-		//server.getExtensions().setServletAttribute("config", helloApplicationContext);
-		//server.getExtensions().mapPathToServletClass("/person/*", PersonController.class);
-		server.start();
-		return server;
-	}
+    public WebServer start() throws Exception {
+        server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
+        server.start();
+        return server;
+    }
 
-	public int getActualPort() {
-		return server.getActualPort();
-	}
+    public int getActualPort() {
+        return server.getActualPort();
+    }
 
 }

@@ -2,14 +2,14 @@ package com.johannesbrodwall.winter.http.requests;
 
 public interface HttpAction {
 
-	void sendNotFound();
+    void sendNotFound();
 
-	String parameter(String name);
+    String parameter(String name);
 
-	String pathVariable(String name);
+    String pathVariable(String name);
 
-	void returnObject(Object jsonObject);
+    void returnObject(Object jsonObject);
 
-	void returnString(String string);
+    void returnString(String string);
 
 }

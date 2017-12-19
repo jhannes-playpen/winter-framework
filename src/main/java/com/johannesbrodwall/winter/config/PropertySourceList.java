@@ -6,23 +6,23 @@ import java.util.Optional;
 
 public class PropertySourceList implements PropertySource {
 
-	private final List<PropertySource> propertySources = new ArrayList<>();
+    private final List<PropertySource> propertySources = new ArrayList<>();
 
-	@Override
-	public Optional<String> property(String key) {
-		return propertySources.stream()
-				.map(p -> p.property(key))
-				.filter(prop -> prop.isPresent())
-				.map(p -> p.get())
-				.findFirst();
-	}
+    @Override
+    public Optional<String> property(String key) {
+        return propertySources.stream()
+                .map(p -> p.property(key))
+                .filter(prop -> prop.isPresent())
+                .map(p -> p.get())
+                .findFirst();
+    }
 
-	public void addPropertySource(PropertySource propertySource) {
-		propertySources.add(propertySource);
-	}
+    public void addPropertySource(PropertySource propertySource) {
+        propertySources.add(propertySource);
+    }
 
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "{" + propertySources + "}";
-	}
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" + propertySources + "}";
+    }
 }

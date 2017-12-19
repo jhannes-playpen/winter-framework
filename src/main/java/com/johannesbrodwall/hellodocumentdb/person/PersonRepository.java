@@ -2,8 +2,8 @@ package com.johannesbrodwall.hellodocumentdb.person;
 
 public interface PersonRepository {
 
-	void save(Person person);
+    void save(Person person);
 
-	Person findOne(String id);
+    Person findOne(String id);
 
 }

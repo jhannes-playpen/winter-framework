@@ -18,80 +18,80 @@ import com.johannesbrodwall.winter.http.server.ServletWebServerExtensions;
 
 public class TomcatWebServer implements ServletWebServer {
 
-	public class Extensions implements ServletWebServerExtensions {
+    public class Extensions implements ServletWebServerExtensions {
 
-		public void addPathToServletInstance(String path, Servlet servlet) {
-			String servletName = servlet.getClass().getSimpleName();
-			Tomcat.addServlet(context, servletName, servlet);
-			context.addServletMappingDecoded(path, servletName);
-		}
+        public void addPathToServletInstance(String path, Servlet servlet) {
+            String servletName = servlet.getClass().getSimpleName();
+            Tomcat.addServlet(context, servletName, servlet);
+            context.addServletMappingDecoded(path, servletName);
+        }
 
-		@Override
-		public void setServletAttribute(String name, Object object) {
-			context.getServletContext().setAttribute(name, object);
-		}
+        @Override
+        public void setServletAttribute(String name, Object object) {
+            context.getServletContext().setAttribute(name, object);
+        }
 
-		@Override
-		public void mapPathToServletClass(String path, Class<? extends Servlet> servletClass) {
-			String servletName = servletClass.getSimpleName();
-			Tomcat.addServlet(context, servletName, servletClass.getName());
-			context.addServletMappingDecoded(path, servletName);
-		}
+        @Override
+        public void mapPathToServletClass(String path, Class<? extends Servlet> servletClass) {
+            String servletName = servletClass.getSimpleName();
+            Tomcat.addServlet(context, servletName, servletClass.getName());
+            context.addServletMappingDecoded(path, servletName);
+        }
 
-	}
+    }
 
-	private Tomcat tomcat = new Tomcat();
-	private Context context;
+    private Tomcat tomcat = new Tomcat();
+    private Context context;
 
-	public TomcatWebServer() {
-		SLF4JBridgeHandler.removeHandlersForRootLogger();
-		SLF4JBridgeHandler.install();
+    public TomcatWebServer() {
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
 
-		this.context = tomcat.addContext("",  getBaseContext());
-	}
+        this.context = tomcat.addContext("", getBaseContext());
+    }
 
-	private String getBaseContext() {
-		// TODO: Ensure that the context path is sensible
-		try {
-			return getClass().getResource("/webapp/").toURI().getPath();
-		} catch (URISyntaxException e) {
-			throw ExceptionUtil.soften(e);
-		}
-	}
+    private String getBaseContext() {
+        // TODO: Ensure that the context path is sensible
+        try {
+            return getClass().getResource("/webapp/").toURI().getPath();
+        } catch (URISyntaxException e) {
+            throw ExceptionUtil.soften(e);
+        }
+    }
 
-	@Override
-	public void setPort(int port) {
-		tomcat.setPort(port);
-	}
+    @Override
+    public void setPort(int port) {
+        tomcat.setPort(port);
+    }
 
-	@Override
-	public int getActualPort() {
-		return tomcat.getConnector().getLocalPort();
-	}
+    @Override
+    public int getActualPort() {
+        return tomcat.getConnector().getLocalPort();
+    }
 
-	@Override
-	public void mapPathToResponder(String path, HttpResponder responder) {
-		String servletName = responder.getClass().getSimpleName() + "-" + UUID.randomUUID();
-		getExtensions().setServletAttribute(servletName, responder);
+    @Override
+    public void mapPathToResponder(String path, HttpResponder responder) {
+        String servletName = responder.getClass().getSimpleName() + "-" + UUID.randomUUID();
+        getExtensions().setServletAttribute(servletName, responder);
 
-		Wrapper servlet = Tomcat.addServlet(context, servletName, ServletHttpResponderAdapter.class.getName());
-		servlet.addInitParameter(ServletHttpResponderAdapter.RESPONDER_NAME, servletName);
-		context.addServletMappingDecoded(path, servletName);
-	}
+        Wrapper servlet = Tomcat.addServlet(context, servletName, ServletHttpResponderAdapter.class.getName());
+        servlet.addInitParameter(ServletHttpResponderAdapter.RESPONDER_NAME, servletName);
+        context.addServletMappingDecoded(path, servletName);
+    }
 
-	@Override
-	public void start() throws Exception {
-		tomcat.start();
-	}
+    @Override
+    public void start() throws Exception {
+        tomcat.start();
+    }
 
-	@Override
-	public void await() {
-		tomcat.getServer().await();
-	}
+    @Override
+    public void await() {
+        tomcat.getServer().await();
+    }
 
-	@Override
-	public Extensions getExtensions() {
-		return new Extensions();
-	}
+    @Override
+    public Extensions getExtensions() {
+        return new Extensions();
+    }
 
 }

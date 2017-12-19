@@ -4,16 +4,16 @@ import com.johannesbrodwall.winter.http.requests.HttpResponder;
 
 public interface WebServer {
 
-	void setPort(int port);
+    void setPort(int port);
 
-	int getActualPort();
+    int getActualPort();
 
-	void start() throws Exception;
+    void start() throws Exception;
 
-	WebServerExtensions getExtensions();
+    WebServerExtensions getExtensions();
 
-	void mapPathToResponder(String path, HttpResponder responder);
+    void mapPathToResponder(String path, HttpResponder responder);
 
-	void await();
+    void await();
 
 }
