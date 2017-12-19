@@ -1,6 +1,5 @@
 package com.johannesbrodwall.hellodocumentdb.person;
 
-import com.johannesbrodwall.hellodocumentdb.HelloApplicationContext;
 import com.johannesbrodwall.winter.http.requests.HttpActionSelector;
 import com.johannesbrodwall.winter.http.requests.HttpActionServlet;
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
@@ -9,7 +8,7 @@ public class PersonController extends HttpActionServlet implements HttpResponder
 
     private PersonControllerContext context;
 
-    public PersonController(HelloApplicationContext context) {
+    public PersonController(PersonControllerContext context) {
         this.context = context;
     }
 
