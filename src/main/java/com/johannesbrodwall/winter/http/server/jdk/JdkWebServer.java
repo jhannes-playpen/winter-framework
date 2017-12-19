@@ -13,17 +13,9 @@ public class JdkWebServer implements WebServer {
 
     private com.sun.net.httpserver.HttpServer server;
 
-    public JdkWebServer() {
+    public JdkWebServer(int port) {
         try {
             server = com.sun.net.httpserver.HttpServer.create();
-        } catch (IOException e) {
-            throw ExceptionUtil.soften(e);
-        }
-    }
-
-    @Override
-    public void setPort(int port) {
-        try {
             server.bind(new InetSocketAddress(port), 0);
         } catch (IOException e) {
             throw ExceptionUtil.soften(e);

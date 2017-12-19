@@ -4,8 +4,6 @@ import com.johannesbrodwall.winter.http.requests.HttpResponder;
 
 public interface WebServer {
 
-    void setPort(int port);
-
     int getActualPort();
 
     void start() throws Exception;

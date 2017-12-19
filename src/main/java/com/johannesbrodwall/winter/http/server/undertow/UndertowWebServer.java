@@ -35,17 +35,14 @@ public class UndertowWebServer implements ServletWebServer {
     private Undertow undertow;
     private DeploymentInfo deploymentInfo;
 
-    public UndertowWebServer() {
+    public UndertowWebServer(int port) {
+        undertowBuilder.addHttpListener(port, "localhost");
         deploymentInfo = Servlets.deployment()
                 .setContextPath("/")
                 .setDeploymentName(getClass().getName())
                 .setClassLoader(getClass().getClassLoader());
     }
 
-    @Override
-    public void setPort(int port) {
-        undertowBuilder.addHttpListener(port, "localhost");
-    }
 
     @Override
     public int getActualPort() {

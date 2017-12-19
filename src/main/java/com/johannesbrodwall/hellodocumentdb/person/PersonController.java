@@ -1,10 +1,9 @@
 package com.johannesbrodwall.hellodocumentdb.person;
 
 import com.johannesbrodwall.winter.http.requests.HttpActionSelector;
-import com.johannesbrodwall.winter.http.requests.HttpActionServlet;
 import com.johannesbrodwall.winter.http.requests.HttpResponder;
 
-public class PersonController extends HttpActionServlet implements HttpResponder {
+public class PersonController implements HttpResponder {
 
     private PersonControllerContext context;
 

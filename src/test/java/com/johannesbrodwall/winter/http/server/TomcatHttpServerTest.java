@@ -16,8 +16,7 @@ public class TomcatHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldCreateServletClassInstance() throws Exception {
-        TomcatWebServer server = new TomcatWebServer();
-        server.setPort(0);
+        TomcatWebServer server = new TomcatWebServer(0);
         server.getExtensions().mapPathToServletClass("/hello", HelloServlet.class);
         server.start();
 
@@ -27,8 +26,7 @@ public class TomcatHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldCreateServletInstance() throws Exception {
-        TomcatWebServer server = new TomcatWebServer();
-        server.setPort(0);
+        TomcatWebServer server = new TomcatWebServer(0);
         server.getExtensions().addPathToServletInstance("/hello", new HelloServlet("dear test instance"));
         server.start();
 
@@ -40,8 +38,7 @@ public class TomcatHttpServerTest extends WebServerTest {
     public void shouldCreateHttpResponderInstance() throws Exception {
         ZonedDateTime startTime = ZonedDateTime.now();
 
-        WebServer server = new TomcatWebServer();
-        server.setPort(0);
+        WebServer server = new TomcatWebServer(0);
         server.mapPathToResponder("/startTime/*", new StartTimeResponder(startTime));
         server.start();
 
@@ -51,8 +48,7 @@ public class TomcatHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldReadParameters() throws Exception {
-        WebServer server = new TomcatWebServer();
-        server.setPort(0);
+        WebServer server = new TomcatWebServer(0);
         server.mapPathToResponder("/*", new GreeterResponder());
         server.start();
 
@@ -65,8 +61,7 @@ public class TomcatHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldReturn404ForNotFound() throws Exception {
-        WebServer server = new TomcatWebServer();
-        server.setPort(0);
+        WebServer server = new TomcatWebServer(0);
         server.mapPathToResponder("/startTime/*", new StartTimeResponder(null));
         server.start();
 

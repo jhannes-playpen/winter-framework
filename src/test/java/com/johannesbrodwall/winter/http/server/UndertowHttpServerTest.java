@@ -14,8 +14,7 @@ public class UndertowHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldCreateServletClassInstance() throws Exception {
-        ServletWebServer server = new UndertowWebServer();
-        server.setPort(0);
+        ServletWebServer server = new UndertowWebServer(0);
         server.getExtensions().mapPathToServletClass("/hello", HelloServlet.class);
         server.start();
 
@@ -27,8 +26,7 @@ public class UndertowHttpServerTest extends WebServerTest {
     public void shouldCreateHttpResponderInstance() throws Exception {
         ZonedDateTime startTime = ZonedDateTime.now();
 
-        WebServer server = new UndertowWebServer();
-        server.setPort(0);
+        WebServer server = new UndertowWebServer(0);
         server.mapPathToResponder("/startTime/*", new StartTimeResponder(startTime));
         server.start();
 
@@ -38,8 +36,7 @@ public class UndertowHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldReadParameters() throws Exception {
-        WebServer server = new UndertowWebServer();
-        server.setPort(0);
+        WebServer server = new UndertowWebServer(0);
         server.mapPathToResponder("/*", new GreeterResponder());
         server.start();
 

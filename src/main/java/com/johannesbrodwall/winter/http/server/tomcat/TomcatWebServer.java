@@ -40,13 +40,15 @@ public class TomcatWebServer implements ServletWebServer {
 
     }
 
-    private Tomcat tomcat = new Tomcat();
+    private Tomcat tomcat;
     private Context context;
 
-    public TomcatWebServer() {
+    public TomcatWebServer(int port) {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
+        this.tomcat = new Tomcat();
+        tomcat.setPort(port);
         this.context = tomcat.addContext("", getBaseContext());
     }
 
@@ -57,11 +59,6 @@ public class TomcatWebServer implements ServletWebServer {
         } catch (URISyntaxException e) {
             throw ExceptionUtil.soften(e);
         }
-    }
-
-    @Override
-    public void setPort(int port) {
-        tomcat.setPort(port);
     }
 
     @Override

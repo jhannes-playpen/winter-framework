@@ -4,11 +4,12 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.johannesbrodwall.hellodocumentdb.person.Person;
+import com.johannesbrodwall.hellodocumentdb.person.PersonRepository;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
-public class MongoPersonRepository implements com.johannesbrodwall.hellodocumentdb.person.PersonRepository {
+public class MongoPersonRepository implements PersonRepository {
 
     private MongoCollection<Document> collection;
 

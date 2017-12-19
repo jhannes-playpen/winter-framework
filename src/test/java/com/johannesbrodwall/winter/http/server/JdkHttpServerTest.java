@@ -18,8 +18,7 @@ public class JdkHttpServerTest extends WebServerTest {
     public void shouldCreateHttpResponderInstance() throws Exception {
         ZonedDateTime startTime = ZonedDateTime.now();
 
-        WebServer server = new JdkWebServer();
-        server.setPort(0);
+        WebServer server = new JdkWebServer(0);
         server.mapPathToResponder("/startTime/*", new StartTimeResponder(startTime));
         server.start();
 
@@ -29,8 +28,7 @@ public class JdkHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldReadParameters() throws Exception {
-        WebServer server = new JdkWebServer();
-        server.setPort(0);
+        WebServer server = new JdkWebServer(0);
         server.mapPathToResponder("/*", new GreeterResponder());
         server.start();
 
@@ -43,8 +41,7 @@ public class JdkHttpServerTest extends WebServerTest {
 
     @Test
     public void shouldReturn404ForNotFound() throws Exception {
-        WebServer server = new JdkWebServer();
-        server.setPort(0);
+        WebServer server = new JdkWebServer(0);
         server.mapPathToResponder("/startTime/*", new StartTimeResponder(null));
         server.start();
 
