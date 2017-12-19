@@ -1,5 +1,6 @@
 package com.johannesbrodwall.winter;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -14,8 +15,10 @@ public class IOUtil {
 			try(InputStreamReader reader = new InputStreamReader(connection.getInputStream())) {
 				return toString(reader);
 			}
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException("404 not found " + url);
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to get content from " + url);
+			throw new RuntimeException("Failed to get content from " + url, e);
 		}
 	}
 

@@ -4,13 +4,12 @@ import java.util.Optional;
 
 import com.johannesbrodwall.hellodocumentdb.person.PersonController;
 import com.johannesbrodwall.winter.config.PropertySource;
-import com.johannesbrodwall.winter.http.server.ServletWebServer;
 import com.johannesbrodwall.winter.http.server.WebServer;
 import com.johannesbrodwall.winter.http.server.tomcat.TomcatWebServer;
 
 public class HelloApplication {
 
-	private ServletWebServer server = new TomcatWebServer();
+	private WebServer server = new TomcatWebServer();
 	private HelloApplicationContext helloApplicationContext;
 
 	public HelloApplication(int httpPort) {
@@ -34,9 +33,9 @@ public class HelloApplication {
 	}
 
 	public WebServer start() throws Exception {
-		//server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
-		server.getExtensions().setServletAttribute("config", helloApplicationContext);
-		server.getExtensions().mapPathToServletClass("/person/*", PersonController.class);
+		server.mapPathToResponder("/person/*", new PersonController(helloApplicationContext));
+		//server.getExtensions().setServletAttribute("config", helloApplicationContext);
+		//server.getExtensions().mapPathToServletClass("/person/*", PersonController.class);
 		server.start();
 		return server;
 	}
