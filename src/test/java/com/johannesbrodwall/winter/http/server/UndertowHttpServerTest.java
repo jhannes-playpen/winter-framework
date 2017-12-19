@@ -1,6 +1,5 @@
 package com.johannesbrodwall.winter.http.server;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URL;

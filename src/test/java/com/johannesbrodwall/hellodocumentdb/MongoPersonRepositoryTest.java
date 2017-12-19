@@ -6,13 +6,13 @@ import com.johannesbrodwall.winter.config.PropertySource;
 
 public class MongoPersonRepositoryTest extends AbstractPersonRepositoryTest {
 
-	private HelloApplicationContext context = new HelloApplicationContext(PropertySource.create("mongo,unittest"));
+    private HelloApplicationContext context = new HelloApplicationContext(PropertySource.create("mongo,unittest"));
 
-	private PersonRepository repository = context.getMongoPersonRepository();
+    private PersonRepository repository = context.getMongoPersonRepository();
 
-	@Override
-	public PersonRepository getRepository() {
-		return repository;
-	}
+    @Override
+    public PersonRepository getRepository() {
+        return repository;
+    }
 
 }

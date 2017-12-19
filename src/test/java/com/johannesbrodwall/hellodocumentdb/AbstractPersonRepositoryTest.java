@@ -10,27 +10,27 @@ import com.johannesbrodwall.hellodocumentdb.person.PersonRepository;
 
 public abstract class AbstractPersonRepositoryTest {
 
-	private Random random = new Random();
+    private Random random = new Random();
 
-	public abstract PersonRepository getRepository();
+    public abstract PersonRepository getRepository();
 
-	@Test
-	public void shouldRetrieveSavedPerson() throws Exception {
-		Person person = new Person();
-		person.setName(sampleName());
+    @Test
+    public void shouldRetrieveSavedPerson() throws Exception {
+        Person person = new Person();
+        person.setName(sampleName());
 
-		getRepository().save(person);
-		assertThat(person.getId()).isNotNull();
+        getRepository().save(person);
+        assertThat(person.getId()).isNotNull();
 
-		assertThat(getRepository().findOne(person.getId()))
-			.isEqualToComparingFieldByField(person);
-	}
+        assertThat(getRepository().findOne(person.getId()))
+            .isEqualToComparingFieldByField(person);
+    }
 
-	private String sampleName() {
-		return pickOne(new String[] { "Sondre", "Johannes", "Trygve", "Trond", "Kai Boris", "Markus" });
-	}
+    private String sampleName() {
+        return pickOne(new String[] { "Sondre", "Johannes", "Trygve", "Trond", "Kai Boris", "Markus" });
+    }
 
-	private <T> T pickOne(T[] options) {
-		return options[random.nextInt(options.length)];
-	}
+    private <T> T pickOne(T[] options) {
+        return options[random.nextInt(options.length)];
+    }
 }

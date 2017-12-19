@@ -19,57 +19,57 @@ import com.johannesbrodwall.hellodocumentdb.HelloApplication;
 import com.johannesbrodwall.hellodocumentdb.HelloApplicationContext;
 import com.johannesbrodwall.winter.config.PropertySource;
 
-
 public class PersonControllerTest {
 
-	private static Integer serverPort = 9090;
+    private static Integer serverPort = 9090;
 
-	@BeforeClass
-	public static void startServer() throws Exception {
-		HelloApplication application = new HelloApplication(0);
-		HelloApplicationContext context = new HelloApplicationContext(PropertySource.create(new File("."), "unittest,mongo"));
-		application.setContext(context);
-		application.start();
-		serverPort = application.getActualPort();
+    @BeforeClass
+    public static void startServer() throws Exception {
+        HelloApplication application = new HelloApplication(0);
+        HelloApplicationContext context = new HelloApplicationContext(
+                PropertySource.create(new File("."), "unittest,mongo"));
+        application.setContext(context);
+        application.start();
+        serverPort = application.getActualPort();
 
-	}
+    }
 
-	@Test
-	public void shouldPostPerson() throws Exception {
-		String url = "http://localhost:" + serverPort + "/person";
+    @Test
+    public void shouldPostPerson() throws Exception {
+        String url = "http://localhost:" + serverPort + "/person";
 
-		String id = postPersonName(url, "Johannes Brodwall");
-		String name = getPersonName(url + "/" + id);
+        String id = postPersonName(url, "Johannes Brodwall");
+        String name = getPersonName(url + "/" + id);
 
-		assertThat(name).isEqualTo("Johannes Brodwall");
-	}
+        assertThat(name).isEqualTo("Johannes Brodwall");
+    }
 
-	private String getPersonName(String url) throws IOException {
-		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-		String response;
-		try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-			response = input.lines().collect(Collectors.joining("\n"));
-		}
+    private String getPersonName(String url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        String response;
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            response = input.lines().collect(Collectors.joining("\n"));
+        }
 
-		return new JSONObject(response).getString("name");
-	}
+        return new JSONObject(response).getString("name");
+    }
 
-	private String postPersonName(String url, String name) throws IOException {
-		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-		connection.setDoOutput(true);
+    private String postPersonName(String url, String name) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setDoOutput(true);
 
-		try (OutputStream output = connection.getOutputStream()) {
-			output.write(("name=" + name).getBytes());
-		}
+        try (OutputStream output = connection.getOutputStream()) {
+            output.write(("name=" + name).getBytes());
+        }
 
-		assertThat(connection.getResponseCode()).as(connection.getResponseMessage()).isEqualTo(200);
+        assertThat(connection.getResponseCode()).as(connection.getResponseMessage()).isEqualTo(200);
 
-		String response;
-		try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-			response = input.lines().collect(Collectors.joining("\n"));
-		}
+        String response;
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            response = input.lines().collect(Collectors.joining("\n"));
+        }
 
-		return new JSONObject(response).getString("id");
-	}
+        return new JSONObject(response).getString("id");
+    }
 
 }
